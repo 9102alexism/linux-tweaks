@@ -123,4 +123,3 @@ apt install git -y
 url=$(wget -qO- "https://api.github.com/repos/git-ecosystem/git-credential-manager/releases/latest" | grep -m1 "browser_download_url.*gcm-linux_amd64.*\.deb" | cut -d'"' -f4); wget --content-disposition "$url"
 apt install ./gcm*.deb
 git-credential-manager configure
-export GCM_CREDENTIAL_STORE=cache
