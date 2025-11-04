@@ -100,6 +100,9 @@ systemctl daemon-reload
 systemctl enable hdd-tuning.service
 systemctl start hdd-tuning.service
 
+# GVFS
+apt install gvfs-backends gvfs-fuse -y
+
 6. DEVELOPMENT AND USER MANAGEMENT
 ----------------------------------
 # Git & Git Credential Manager
@@ -126,3 +129,7 @@ unset u; PS3="Select a user: "; select u in $(ls /home); do [[ -n "$u" ]] && bre
 
 # Change ruTorrent Top Directory to '/'
 sed -i "s|^\(\$topDirectory = \)'[^']*';|\1'/';|" "/srv/rutorrent/conf/users/$u/config.php"
+
+# Swizzin grants the chosen master account (e.g., enten) sudo privileges.
+# To remove sudo access manually:
+# gpasswd -d enten sudo
