@@ -20,10 +20,18 @@ apt update
 ---------------------------------
 # Bluetooth
 apt install bluetooth blueman firmware-realtek -y
+sed -i -e '/load-module module-switch-on-connect/b' -e '$a load-module module-switch-on-connect' /etc/pulse/default.pa
 reboot
+
+# Redshift
+apt install redshift-gtk -y
+unset u; PS3="Select a user: "; select u in $(ls /home); do [[ -n "$u" ]] && break; done; mkdir -p /home/$u/.config; cp redshift.conf /home/$u/.config/; GEO=$(curl -s https://ipinfo.io/loc); sed -i "s/^lat=.*/lat=${GEO%,*}/;s/^lon=.*/lon=${GEO#*,}/" /home/$u/.config/redshift.conf
 
 # LightDM GTK Greeter
 apt install lightdm-gtk-greeter-settings -y
+
+# Galculator
+apt install galculator -y
 
 # BleachBit
 apt install bleachbit -y
