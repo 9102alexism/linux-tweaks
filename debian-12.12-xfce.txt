@@ -23,6 +23,12 @@ apt install bluetooth blueman firmware-realtek -y
 sed -i -e '/load-module module-switch-on-connect/b' -e '$a load-module module-switch-on-connect' /etc/pulse/default.pa
 reboot
 
+# TCP BBR
+echo -e "net.core.default_qdisc=fq\nnet.ipv4.tcp_congestion_control=bbr" | tee -a /etc/sysctl.conf && /usr/sbin/sysctl -p
+
+# GDebi
+apt install gdebi -y
+
 # Redshift
 apt install redshift-gtk -y
 unset u; PS3="Select a user: "; select u in $(ls /home); do [[ -n "$u" ]] && break; done; mkdir -p /home/$u/.config; cp redshift.conf /home/$u/.config/; GEO=$(curl -s https://ipinfo.io/loc); sed -i "s/^lat=.*/lat=${GEO%,*}/;s/^lon=.*/lon=${GEO#*,}/" /home/$u/.config/redshift.conf
